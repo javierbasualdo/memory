@@ -1,17 +1,7 @@
-<script setup>
-
-</script>
-
 <template>
-  <header>
-    
-  </header>
-
-  <main>
-    
-  </main>
+  <BoardGame/>
 </template>
 
-<style scoped>
-
-</style>
+<script setup>
+import BoardGame from '@/components/BoardGame.vue'
+</script>
