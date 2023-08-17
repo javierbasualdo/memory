@@ -7,7 +7,8 @@ export const useMemoryGame = defineStore('game', {
         errors: 0,
         cards: [],
         cardsQty: 9,
-        enableClick: true
+        enableClick: true,
+        endGame: false,
     }),
     getters: {
 
@@ -51,7 +52,9 @@ export const useMemoryGame = defineStore('game', {
                 if (cardsFliped[0].card.uuid == cardsFliped[1].card.uuid) {
                     this.hits++
                     cardsFliped.forEach(item => this.cards[item.index].matched = true)
-                    this.enableClick = true
+                    if (!this.isGameOver()) {
+                        this.enableClick = true
+                    }
                 } else {
                     this.errors++
                     setTimeout(() => {
@@ -61,6 +64,25 @@ export const useMemoryGame = defineStore('game', {
                 }
             }
             
+        },
+        isGameOver() {
+            const allFlipped = this.cards.every(card => card.show == true && card.matched == true)
+    
+            if (allFlipped) {
+                this.endGame = true
+                return true
+            }
+
+            return false
+        },
+        resetGame() {
+            this.hits = 0
+            this.errors = 0
+            this.cards = []
+            this.cardsQty = 9
+            this.enableClick = true
+            this.endGame = false
+            this.getCards()
         }
     }
 })

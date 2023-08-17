@@ -1,15 +1,15 @@
 <template>
     <main class="h-screen w-screen mx-auto flex items-center justify-center bg-black/60">
-        <div class="user-container w-80 h-80 md:w-2/4 max-w-2xl flex flex-col items-center justify-center pl-1 pt-12">
+        <div class="user-container w-80 h-80 md:w-2/4 max-w-2xl flex flex-col items-center justify-center pl-1 pt-12 font-['Anton'] text-orange-900">
             <span class="font-medium">Nombre</span>
             <input 
                 v-model="text"
                 type="text" 
-                class="w-20 md:w-36 my-2 outline outline-1 outline-green-600 bg-green-400 rounded px-2 text-center"
+                class="w-20 md:w-36 my-2 outline outline-1 outline-green-600 bg-white rounded px-2 text-center"
             >
             <button
                 @click="saveUser"
-                class="bg-sky-800 px-5 rounded text-white md:w-36 hover:bg-sky-950">
+                class="bg-orange-900 px-5 rounded text-white md:w-36 hover:bg-orange-700">
                 Jugar
             </button>
         </div>
