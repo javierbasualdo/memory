@@ -1,6 +1,6 @@
 <template>
-    <div class="score-content w-64 h-36 grid grid-cols-2 grid-rows-2 font-['Anton'] text-orange-900">
-        <div class="col-span-2 flex justify-center items-center pb-3 text-lg">Hola {{ userName }}!</div>
+    <div class="scores w-64 h-36 grid grid-cols-2 grid-rows-2 font-['Anton'] text-orange-900">
+        <div class="col-span-2 flex justify-center items-center pb-3 text-lg">Hola {{ userName.substring(0,20) }}!</div>
         <div class="flex flex-col items-center">
             <span>Aciertos</span>
             <div :class="[animationHit ? `animate-ping`: ``]">{{ hits }}</div>
@@ -44,7 +44,7 @@ const animations = (anim) => {
 </script>
 
 <style scoped>
-.score-content {
+.scores {
     background-image: url('@/assets/user-score-background.png');
     background-size: contain;
     background-repeat: no-repeat;

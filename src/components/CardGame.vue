@@ -1,5 +1,5 @@
 <template>
-    <div class="card group h-full w-full [perspective:1000px]">
+    <button class="card group h-full w-full [perspective:1000px]">
         <div 
             :class="[`card__container relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d]`, props.info.show ? `[transform:rotateY(180deg)]` : ``]"
         >
@@ -11,10 +11,11 @@
                     v-if="props.info.show"
                     class="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" 
                     :src="props.info.url" 
-                    alt="" />
+                    :alt="props.info.title" 
+                />
             </div>
         </div>
-    </div>
+    </button>
 </template>
 
 <script setup>
