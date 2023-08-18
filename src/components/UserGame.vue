@@ -24,10 +24,11 @@ import { ref } from 'vue'
 import useUser from '@/composables/useUser'
 
 const { setUser } = useUser()
-const text = ref(null)
+const text = ref('')
 
 const saveUser = () => {
-    setUser(text.value)
+    if (text.value.trim() !== '')
+        setUser(text.value)
 }
 </script>
 

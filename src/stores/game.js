@@ -1,14 +1,19 @@
 import { defineStore } from 'pinia'
 
+const cardsQty = 9
+const cardsTotal = cardsQty * 2
+
 export const useMemoryGame = defineStore('game', {
     state: () => ({
         hasUser: false,
         hits: 0,
         errors: 0,
         cards: [],
-        cardsQty: 9,
         enableClick: true,
         endGame: false,
+        imagesCached: {},
+        imagesReady: false,
+        percentage: 0
     }),
     getters: {
 
@@ -16,7 +21,7 @@ export const useMemoryGame = defineStore('game', {
     actions: {
         async getCards() {
             try {
-                const getNewCards = await fetch(`https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=${this.cardsQty}`)
+                const getNewCards = await fetch(`https://fed-team.modyo.cloud/api/content/spaces/animals/types/game/entries?per_page=${cardsQty}`)
                 const newCards = await getNewCards.json()
                 const cardsInfo = []
                 
@@ -30,10 +35,49 @@ export const useMemoryGame = defineStore('game', {
                 cardsInfo.sort(() => Math.random() - 0.5)
 
                 this.cards = cardsInfo
+
+                this.prepareImages()
                 
             } catch (error) {
                 return
             }
+        },
+        prepareImages() {
+            let loaded = 0
+        
+            function getBase64Image(img) {
+                
+                let canvas = document.createElement("canvas");
+                canvas.width = img.width;
+                canvas.height = img.height;
+            
+                let ctx = canvas.getContext("2d");
+                ctx.drawImage(img, 0, 0);
+            
+                let dataURL = canvas.toDataURL("image/jpeg");
+            
+                return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+            }
+
+            this.cards.forEach(card => {
+                const image = new Image()
+                image.crossOrigin="anonymous"
+                image.onload = () => {
+                    const imgData = getBase64Image(image)
+                    
+                    this.imagesCached[card.uuid] = imgData
+
+                    loaded++
+
+                    this.percentage = Math.round(100 / cardsTotal * loaded)
+
+                    if(loaded == cardsTotal) {
+                        this.imagesReady = true
+                    }
+                }
+                image.src = card.url
+
+            })
         },
         cardSelected(index) {
             this.cards[index].show = true
@@ -79,9 +123,11 @@ export const useMemoryGame = defineStore('game', {
             this.hits = 0
             this.errors = 0
             this.cards = []
-            this.cardsQty = 9
             this.enableClick = true
             this.endGame = false
+            this.imagesCached = {}
+            this.imagesReady = false
+            this.percentage = 0
             this.getCards()
         }
     }
