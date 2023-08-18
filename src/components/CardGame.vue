@@ -10,7 +10,7 @@
                 <img 
                     v-if="props.info.show"
                     class="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" 
-                    :src="props.info.url" 
+                    :src="game.imagesCached[props.info.uuid]" 
                     :alt="props.info.title" 
                 />
             </div>
@@ -19,9 +19,13 @@
 </template>
 
 <script setup>
+import { useMemoryGame } from '@/stores/game' 
+
 const props = defineProps({
     info: { type: Object, required: true },
 })
+
+const game = useMemoryGame()
 </script>
 
 <style scoped>

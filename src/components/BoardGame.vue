@@ -1,6 +1,6 @@
 <template>
     <main class="h-screen max-w-screen-lg mx-auto grid grid-cols-1 grid-rows-1 p-5">
-        <div class="grid grid-rows-6 md:gap-4">
+        <div v-if="game.imagesReady" class="grid grid-rows-6 md:gap-4">
             <section class="row-span-1 grid place-content-center">
                 <ScoreGame/>
             </section>
@@ -15,12 +15,14 @@
             </section>
         </div>
     </main>
+    <PreloadImages v-if="!game.imagesReady"/>
 </template>
 
 <script setup>
 import { useMemoryGame } from '@/stores/game' 
 import ScoreGame from '@/components/ScoreGame.vue'
 import CardGame from '@/components/CardGame.vue'
+import PreloadImages from '@/components/PreloadImages.vue'
 
 const game = useMemoryGame()
 
