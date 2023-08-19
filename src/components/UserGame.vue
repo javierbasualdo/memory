@@ -1,5 +1,5 @@
 <template>
-    <main class="user h-screen w-screen mx-auto flex items-center justify-center bg-black/60">
+    <main class="user h-[calc(100dvh)] w-screen mx-auto flex items-center justify-center bg-black/60">
         <div class="user__container w-80 h-80 md:w-2/4 max-w-2xl flex flex-col items-center justify-center pl-1 pt-12 font-['Anton'] text-orange-900">
             <label class="font-medium" for="username">Nombre</label>
             <input 

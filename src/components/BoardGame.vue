@@ -1,6 +1,6 @@
 <template>
-    <main class="h-screen max-w-screen-lg mx-auto grid grid-cols-1 grid-rows-1 p-5">
-        <div v-if="game.imagesReady" class="grid grid-rows-6 md:gap-4">
+    <main class="h-[calc(100dvh)] max-w-screen-lg mx-auto grid grid-cols-1 grid-rows-1 p-5">
+        <div v-if="game.imagesReady" class="grid grid-rows-6 gap-2 md:gap-4">
             <section class="row-span-1 grid place-content-center">
                 <ScoreGame/>
             </section>
